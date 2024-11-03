@@ -24,7 +24,8 @@ Route::post('password/reset', [AuthController::class, 'resetPassword']);
 
 
 
-Route::group(['middleware' => 'auth:sanctum'], function() {
+// Apply rate limiter to all routes within this group
+Route::group(['middleware' => ['auth:sanctum', 'throttle:api']], function() {
     Route::get('logout', [AuthController::class, 'logout']);
     Route::get('user', [AuthController::class, 'user']);
 
