@@ -14,50 +14,43 @@ class ArticleController extends Controller
     /**
      * @OA\Get(
      *     path="/api/articles",
-     *     summary="Fetch articles with pagination and optional filters",
      *     tags={"Articles"},
+     *     summary="Get a list of articles",
      *     @OA\Parameter(
      *         name="keyword",
      *         in="query",
      *         required=false,
-     *         description="Search articles by keyword",
+     *         description="Keyword to filter articles by title or content",
      *         @OA\Schema(type="string")
      *     ),
      *     @OA\Parameter(
      *         name="date",
      *         in="query",
      *         required=false,
-     *         description="Filter articles by published date",
+     *         description="Filter articles by publication date (YYYY-MM-DD)",
      *         @OA\Schema(type="string", format="date")
      *     ),
      *     @OA\Parameter(
      *         name="category",
      *         in="query",
      *         required=false,
-     *         description="Filter articles by category",
+     *         description="Filter articles by category name",
      *         @OA\Schema(type="string")
      *     ),
      *     @OA\Parameter(
      *         name="source",
      *         in="query",
      *         required=false,
-     *         description="Filter articles by source",
+     *         description="Filter articles by source name",
      *         @OA\Schema(type="string")
      *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="A list of articles",
-     *         @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Article"))
-     *     ),
-     *     @OA\Response(
-     *         response=404,
-     *         description="Not found"
-     *     )
+     *     @OA\Response(response=200, description="List of articles"),
+     *     @OA\Response(response=404, description="No articles found"),
      * )
      */
     public function index(Request $request)
     {
-        $query = Article::query()->with(['categories','source']);
+        $query = Article::query()->with(['categories', 'source']);
 
         // Filtering by keyword
         if ($request->has('keyword')) {
@@ -93,8 +86,8 @@ class ArticleController extends Controller
     /**
      * @OA\Get(
      *     path="/api/articles/{id}",
-     *     summary="Retrieve a single article's details",
      *     tags={"Articles"},
+     *     summary="Get a single article by ID",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -102,20 +95,13 @@ class ArticleController extends Controller
      *         description="ID of the article to retrieve",
      *         @OA\Schema(type="integer")
      *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Article details",
-     *         @OA\JsonContent(ref="#/components/schemas/Article")
-     *     ),
-     *     @OA\Response(
-     *         response=404,
-     *         description="Article not found"
-     *     )
+     *     @OA\Response(response=200, description="Article details"),
+     *     @OA\Response(response=404, description="Article not found"),
      * )
      */
     public function show($id)
     {
-        $article = Article::where('id',$id)->with(['categories','source'])->first();
+        $article = Article::where('id', $id)->with(['categories', 'source'])->first();
 
         if (!$article) {
             return response()->json(['message' => 'Article not found'], 404);
