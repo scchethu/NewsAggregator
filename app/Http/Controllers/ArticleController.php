@@ -16,6 +16,7 @@ class ArticleController extends Controller
      *     path="/api/articles",
      *     tags={"Articles"},
      *     summary="Get a list of articles",
+     *     description="Retrieve a list of articles with optional filtering by keyword, date, category, or source.",
      *     @OA\Parameter(
      *         name="keyword",
      *         in="query",
@@ -44,7 +45,16 @@ class ArticleController extends Controller
      *         description="Filter articles by source name",
      *         @OA\Schema(type="string")
      *     ),
-     *     @OA\Response(response=200, description="List of articles"),
+     *     @OA\Response(
+     *         response=200,
+     *         description="List of articles retrieved successfully",
+     *         @OA\JsonContent(type="object",
+     *             @OA\Property(property="current_page", type="integer"),
+     *             @OA\Property(property="data"),
+     *             @OA\Property(property="last_page", type="integer"),
+     *             @OA\Property(property="total", type="integer")
+     *         )
+     *     ),
      *     @OA\Response(response=404, description="No articles found"),
      * )
      */
@@ -88,6 +98,7 @@ class ArticleController extends Controller
      *     path="/api/articles/{id}",
      *     tags={"Articles"},
      *     summary="Get a single article by ID",
+     *     description="Retrieve the details of a specific article by its ID.",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -95,7 +106,8 @@ class ArticleController extends Controller
      *         description="ID of the article to retrieve",
      *         @OA\Schema(type="integer")
      *     ),
-     *     @OA\Response(response=200, description="Article details"),
+     *     @OA\Response(response=200, description="Article details retrieved successfully"
+     *     ),
      *     @OA\Response(response=404, description="Article not found"),
      * )
      */

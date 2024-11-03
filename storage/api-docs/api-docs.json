@@ -15,6 +15,7 @@
                     "Articles"
                 ],
                 "summary": "Get a list of articles",
+                "description": "Retrieve a list of articles with optional filtering by keyword, date, category, or source.",
                 "operationId": "11aa4cc6561a7b94c56d1201d62513ee",
                 "parameters": [
                     {
@@ -57,7 +58,26 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "List of articles"
+                        "description": "List of articles retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "current_page": {
+                                            "type": "integer"
+                                        },
+                                        "data": {},
+                                        "last_page": {
+                                            "type": "integer"
+                                        },
+                                        "total": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "404": {
                         "description": "No articles found"
@@ -71,6 +91,7 @@
                     "Articles"
                 ],
                 "summary": "Get a single article by ID",
+                "description": "Retrieve the details of a specific article by its ID.",
                 "operationId": "b3e529eab04efb5d305b07e2e58d9869",
                 "parameters": [
                     {
@@ -85,7 +106,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Article details"
+                        "description": "Article details retrieved successfully"
                     },
                     "404": {
                         "description": "Article not found"
