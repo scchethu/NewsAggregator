@@ -59,5 +59,5 @@ The News Aggregator API is a RESTful service built with Laravel that aggregates 
 3. **Swagger API link:**
 
    ```bash
-    https://localhost:8000/api/documentation
+    https://app.swaggerhub.com/apis/SCCHETHU/authentication-api/1.0
 
