@@ -16,3 +16,8 @@ use App\Http\Controllers\AuthController;
 |
 */
 
+
+Route::post('login', [AuthController::class, 'login'])->name('login');
+Route::post('register', [AuthController::class, 'register']);
+Route::post('password/email', [AuthController::class, 'sendResetLink']);
+Route::post('password/reset', [AuthController::class, 'resetPassword']);
