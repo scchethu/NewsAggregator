@@ -30,6 +30,10 @@ class ArticleFetch extends Command
      */
     public function handle()
     {
+
+        Article::flushQueryCache();
+        NewsCategory::flushQueryCache();
+        NewsSource::flushQueryCache();
         $news = [
             'NewsApi' => [
                 'api' => 'https://newsdata.io/api/1/latest?apikey=pub_57976dae397619a260a368f6d4be58a8a0d79',
