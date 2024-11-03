@@ -360,6 +360,7 @@
                     "User Preferences"
                 ],
                 "summary": "Set user preferences",
+                "description": "Set the user's news source, category, and author preferences.",
                 "operationId": "3a6d046724f56dd9c3433d494ee68e62",
                 "requestBody": {
                     "required": true,
@@ -373,12 +374,15 @@
                                 ],
                                 "properties": {
                                     "news_source_id": {
+                                        "description": "ID of the preferred news source",
                                         "type": "integer"
                                     },
                                     "news_category_id": {
+                                        "description": "ID of the preferred news category",
                                         "type": "integer"
                                     },
                                     "author": {
+                                        "description": "Preferred author name",
                                         "type": "string"
                                     }
                                 },
@@ -389,7 +393,12 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Preferences set successfully"
+                        "description": "Preferences set successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
                     },
                     "400": {
                         "description": "Invalid input"
@@ -400,13 +409,19 @@
         "/api/authors": {
             "get": {
                 "tags": [
-                    "Authors"
+                    "User Preferences"
                 ],
                 "summary": "Get all authors",
+                "description": "Retrieve a list of unique authors from articles.",
                 "operationId": "0846f8dabda4441e5b8b4c2640a54a11",
                 "responses": {
                     "200": {
-                        "description": "List of authors"
+                        "description": "List of authors",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
                     }
                 }
             }
@@ -414,13 +429,19 @@
         "/api/categories": {
             "get": {
                 "tags": [
-                    "Categories"
+                    "User Preferences"
                 ],
                 "summary": "Get all categories",
+                "description": "Retrieve a list of all news categories.",
                 "operationId": "a1879ef561e2454858c6748026619acd",
                 "responses": {
                     "200": {
-                        "description": "List of categories"
+                        "description": "List of categories",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
                     }
                 }
             }
@@ -428,13 +449,19 @@
         "/api/news-sources": {
             "get": {
                 "tags": [
-                    "News Sources"
+                    "User Preferences"
                 ],
                 "summary": "Get all news sources",
+                "description": "Retrieve a list of all news sources.",
                 "operationId": "122eacb40194c3c1d3e875aec6aec530",
                 "responses": {
                     "200": {
-                        "description": "List of news sources"
+                        "description": "List of news sources",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
                     }
                 }
             }
@@ -442,13 +469,19 @@
         "/api/personalized-feed": {
             "get": {
                 "tags": [
-                    "Personalized Feed"
+                    "User Preferences"
                 ],
                 "summary": "Get personalized news feed",
+                "description": "Retrieve a personalized news feed based on user preferences.",
                 "operationId": "e9dc424d6a5f75db9b7b6b734331a6ea",
                 "responses": {
                     "200": {
-                        "description": "List of personalized articles"
+                        "description": "List of personalized articles",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
                     }
                 }
             }
@@ -466,22 +499,6 @@
         {
             "name": "User Preferences",
             "description": "User Preferences"
-        },
-        {
-            "name": "Authors",
-            "description": "Authors"
-        },
-        {
-            "name": "Categories",
-            "description": "Categories"
-        },
-        {
-            "name": "News Sources",
-            "description": "News Sources"
-        },
-        {
-            "name": "Personalized Feed",
-            "description": "Personalized Feed"
         }
     ]
 }

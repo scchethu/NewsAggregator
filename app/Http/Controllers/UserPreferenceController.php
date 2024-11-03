@@ -9,7 +9,6 @@ use App\Models\UserPreference;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-
 class UserPreferenceController extends Controller
 {
     /**
@@ -17,16 +16,19 @@ class UserPreferenceController extends Controller
      *     path="/api/preferences",
      *     tags={"User Preferences"},
      *     summary="Set user preferences",
+     *     description="Set the user's news source, category, and author preferences.",
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
      *             required={"news_source_id", "news_category_id", "author"},
-     *             @OA\Property(property="news_source_id", type="integer"),
-     *             @OA\Property(property="news_category_id", type="integer"),
-     *             @OA\Property(property="author", type="string"),
+     *             @OA\Property(property="news_source_id", type="integer", description="ID of the preferred news source"),
+     *             @OA\Property(property="news_category_id", type="integer", description="ID of the preferred news category"),
+     *             @OA\Property(property="author", type="string", description="Preferred author name")
      *         )
      *     ),
-     *     @OA\Response(response=201, description="Preferences set successfully"),
+     *     @OA\Response(response=201, description="Preferences set successfully",
+     *         @OA\JsonContent()
+     *     ),
      *     @OA\Response(response=400, description="Invalid input")
      * )
      */
@@ -50,24 +52,29 @@ class UserPreferenceController extends Controller
     /**
      * @OA\Get(
      *     path="/api/authors",
-     *     tags={"Authors"},
+     *     tags={"User Preferences"},
      *     summary="Get all authors",
-     *     @OA\Response(response=200, description="List of authors")
+     *     description="Retrieve a list of unique authors from articles.",
+     *     @OA\Response(response=200, description="List of authors",
+     *         @OA\JsonContent()
+     *     )
      * )
      */
     public function getAuthors()
     {
         $authors = Article::distinct('author')->get()->pluck('author');
-
         return response()->json($authors);
     }
 
     /**
      * @OA\Get(
      *     path="/api/categories",
-     *     tags={"Categories"},
+     *     tags={"User Preferences"},
      *     summary="Get all categories",
-     *     @OA\Response(response=200, description="List of categories")
+     *     description="Retrieve a list of all news categories.",
+     *     @OA\Response(response=200, description="List of categories",
+     *         @OA\JsonContent()
+     *     )
      * )
      */
     public function getCategories()
@@ -79,9 +86,12 @@ class UserPreferenceController extends Controller
     /**
      * @OA\Get(
      *     path="/api/news-sources",
-     *     tags={"News Sources"},
+     *     tags={"User Preferences"},
      *     summary="Get all news sources",
-     *     @OA\Response(response=200, description="List of news sources")
+     *     description="Retrieve a list of all news sources.",
+     *     @OA\Response(response=200, description="List of news sources",
+     *         @OA\JsonContent()
+     *     )
      * )
      */
     public function getNewsSources()
@@ -93,27 +103,28 @@ class UserPreferenceController extends Controller
     /**
      * @OA\Get(
      *     path="/api/personalized-feed",
-     *     tags={"Personalized Feed"},
+     *     tags={"User Preferences"},
      *     summary="Get personalized news feed",
-     *     @OA\Response(response=200, description="List of personalized articles")
+     *     description="Retrieve a personalized news feed based on user preferences.",
+     *     @OA\Response(response=200, description="List of personalized articles",
+     *         @OA\JsonContent()
+     *     )
      * )
      */
     public function getPersonalizedFeed()
     {
         $user = Auth::user();
-
-
         $preference = UserPreference::where('user_id', $user->id)->first();
 
         // Fetch articles based on user preferences
-        $query = Article::query()->with(['categories','source']);
+        $query = Article::query()->with(['categories', 'source']);
 
         if ($preference) {
             if ($preference->news_source_id) {
                 $query->where('news_source_id', $preference->news_source_id);
             }
             if ($preference->news_category_id) {
-                $query->whereHas('categories',function ($q) use ($preference) {
+                $query->whereHas('categories', function ($q) use ($preference) {
                     $q->where('news_category_id', $preference->news_category_id);
                 });
             }
@@ -123,7 +134,6 @@ class UserPreferenceController extends Controller
         }
 
         $articles = $query->get();
-
         return response()->json($articles);
     }
 }
