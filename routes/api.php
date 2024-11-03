@@ -21,3 +21,12 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::post('register', [AuthController::class, 'register']);
 Route::post('password/email', [AuthController::class, 'sendResetLink']);
 Route::post('password/reset', [AuthController::class, 'resetPassword']);
+
+
+
+Route::group(['middleware' => 'auth:sanctum'], function() {
+    Route::get('logout', [AuthController::class, 'logout']);
+    Route::get('user', [AuthController::class, 'user']);
+
+});
+
