@@ -129,12 +129,6 @@ class AuthController extends Controller
      *     tags={"Auth"},
      *     security={{"bearerAuth":{}}},
      *     summary="Get the authenticated User",
-     *      @OA\RequestBody(
-     *         @OA\MediaType(
-     *             mediaType="application/json"
-     * )
-     * ),
-     *
      *     @OA\Response(response=200, description="User object"),
      *     @OA\Response(response=401, description="Unauthorized")
      * )
@@ -162,7 +156,7 @@ class AuthController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/password/reset",
+     *     path="/api/password/email",
      *     tags={"Auth"},
      *     summary="Send a password reset link to the user's email",
      *     @OA\RequestBody(
@@ -189,7 +183,7 @@ class AuthController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/password/reset/confirm",
+     *     path="/api/password/reset",
      *     tags={"Auth"},
      *     summary="Reset the user's password",
      *     @OA\RequestBody(

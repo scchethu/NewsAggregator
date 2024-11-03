@@ -221,11 +221,6 @@
                 ],
                 "summary": "Get the authenticated User",
                 "operationId": "7c1cf647d76fad4b3eb1549fa4fe2f4c",
-                "requestBody": {
-                    "content": {
-                        "application/json": {}
-                    }
-                },
                 "responses": {
                     "200": {
                         "description": "User object"
@@ -258,13 +253,13 @@
                 }
             }
         },
-        "/api/password/reset": {
+        "/api/password/email": {
             "post": {
                 "tags": [
                     "Auth"
                 ],
                 "summary": "Send a password reset link to the user's email",
-                "operationId": "71a6bdcb2b558ba532a266b281f59218",
+                "operationId": "589cb7dc5317ce9651d41263927a3d4b",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -294,13 +289,13 @@
                 }
             }
         },
-        "/api/password/reset/confirm": {
+        "/api/password/reset": {
             "post": {
                 "tags": [
                     "Auth"
                 ],
                 "summary": "Reset the user's password",
-                "operationId": "2741163d207053d1fc7bcd3ce7827e0d",
+                "operationId": "5f9daa4e2d9a09acda465d6b8455a1cd",
                 "requestBody": {
                     "required": true,
                     "content": {
