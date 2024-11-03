@@ -34,5 +34,30 @@ The News Aggregator API is a RESTful service built with Laravel that aggregates 
 2. **Build and Run the Docker Containers:**
 
    ```bash
-    docker-compose up -d
+    docker-compose up -d --build
+   
+3. **Edit the .env file to match your database configuration::**
+
+    ```bash
+    cp .env.example .env
+   
+   
+    DB_CONNECTION=mysql
+    DB_HOST=db
+    DB_PORT=3306
+    DB_DATABASE=laravel
+    DB_USERNAME=user
+    DB_PASSWORD=password
+
+
+4. **Run Database Migrations:**
+
+    ```bash
+    docker-compose exec app php artisan migrate
+
+
+3. **Swagger API link:**
+
+   ```bash
+    https://localhost:8000/api/documentation
 
