@@ -57,7 +57,8 @@ class UserPreferenceController extends Controller
      */
     public function getAuthors()
     {
-        $authors = Article::select('author')->distinct()->get()->pluck('author');
+        $authors = Article::distinct('author')->get()->pluck('author');
+
         return response()->json($authors);
     }
 
